@@ -239,7 +239,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - NCBI for providing the E-utilities API
 - ScienceDirect for impact factor data
 - The Python scientific computing community
-
----
- 
- 
