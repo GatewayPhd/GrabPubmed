@@ -221,7 +221,7 @@ If you use this tool in your research, please cite:
   author = {Li, Xiang and GitHub Copilot},
   title = {PubMed Literature Retrieval and Interactive Reading List Generator},
   year = {2025},
-  url = {https://github.com/yourusername/grab-pubmed-info}
+  url = {https://github.com/GatewayPhd/grab-pubmed-info}
 }
 ```
 
@@ -239,3 +239,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - NCBI for providing the E-utilities API
 - ScienceDirect for impact factor data
 - The Python scientific computing community
+
