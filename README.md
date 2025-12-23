@@ -24,6 +24,8 @@ An automated tool for querying PubMed, extracting article metadata, enriching wi
 - ⭐ **Star System**: Mark important papers with persistent state
 - ✓ **Read Tracking**: Track reading progress across sessions
 - 💾 **Persistent State**: All user interactions saved in browser localStorage
+  - **Isolated Storage**: Each query has independent localStorage space (v2.1+)
+  - No state interference between different HTML files
 
 ## 🚀 Quick Start
 
@@ -192,6 +194,10 @@ grab-pubmed-info-master/
 **Problem:** HTML not updating after code changes  
 **Solution:** Use `importlib.reload(html_generate)` before calling `generate_reading_list()`
 
+
+**Problem:** Star/read marks appear in wrong HTML file  
+**Solution:** Update to v2.1+. Each HTML now uses isolated localStorage. Regenerate HTML files to fix.
+
 ### Error Reporting
 
 Found a bug? Please [open an issue](https://github.com/yourusername/grab-pubmed-info/issues) with:
@@ -199,6 +205,37 @@ Found a bug? Please [open an issue](https://github.com/yourusername/grab-pubmed-
 - Python version
 - Browser (for HTML issues)
 - Minimal reproducible example
+
+## 📋 Changelog
+
+### Version 2.1 (2025-12-23)
+
+**Bug Fix: localStorage State Isolation**
+- 🔧 Fixed localStorage state sharing between different query HTML files
+- ✨ Each HTML file now uses unique storage keys based on filename
+- 🎯 Prevents star/read marks from interfering across different queries
+- ⚠️ **Note**: Existing HTML files will need regeneration (old states not preserved)
+
+**Technical Details:**
+- Added `storage_key_suffix` extraction from output filename
+- Injected `STORAGE_KEY_PREFIX` constant in JavaScript
+- Updated all `localStorage` API calls to use dynamic keys
+- Example keys: `starred_wnt5a_reading_list`, `read_breast_cancer_reading_list`
+
+### Version 2.0 (2025-12-22)
+
+**Major Features:**
+- Added collapsible sidebar navigation with bookmark links
+- Implemented star and read marking with persistent state
+- Real-time status synchronization between article cards and sidebar
+- Optimized for GitHub with comprehensive documentation
+- Simplified Excel column names for better compatibility
+
+### Version 1.0 (Original)
+
+- PubMed query and metadata extraction
+- Impact factor scraping from ScienceDirect
+- Basic HTML generation with keyword highlighting
 
 ## 🤝 Contributing
 
