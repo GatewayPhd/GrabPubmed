@@ -7,7 +7,7 @@
 An automated tool for querying PubMed, extracting article metadata, enriching with journal impact factors, and generating interactive HTML reading lists with sidebar navigation and persistent state management.
 
 ## ✨ Features
-![1767801534766](image/README/1767801534766.png)
+![1767802302424](image/README/1767802302424.png)
 ### Core Functionality
 - 🔍 **Advanced PubMed Search**: Full support for E-utilities query syntax with field tags, boolean operators, and wildcards
 - 📊 **Impact Factor Integration**: Automatic scraping of IF and Quartile information from ScienceDirect
