@@ -158,6 +158,9 @@ def generate_reading_list(input_path_or_df, output_html_path, search_info=None):
     # Sanitize: remove special chars, limit length
     storage_key_suffix = re.sub(r'[^a-zA-Z0-9_]', '_', storage_key_suffix)[:50]
 
+    # 每次生成时注入一个唯一的 generation id（用于判断是否为新生成并清除旧的 localStorage 状态）
+    generation_id = datetime.utcnow().strftime('%Y%m%d%H%M%S')
+
     html_content = f'''
     <!DOCTYPE html>
     <html lang="en">
@@ -285,6 +288,22 @@ def generate_reading_list(input_path_or_df, output_html_path, search_info=None):
     <script>
         // Unique storage key suffix to isolate localStorage for different queries
         const STORAGE_KEY_PREFIX = '{storage_key_suffix}';
+        // Unique generation id injected at file creation time
+        const GENERATION_ID = '{generation_id}';
+
+        // If the stored generation id differs, reset persisted starred/read state (clear old markers)
+        (function(){
+            const genKey = 'generation_' + STORAGE_KEY_PREFIX;
+            if (localStorage.getItem(genKey) !== GENERATION_ID) {
+                try {
+                    localStorage.setItem('starred_' + STORAGE_KEY_PREFIX, JSON.stringify([]));
+                    localStorage.setItem('read_' + STORAGE_KEY_PREFIX, JSON.stringify([]));
+                    localStorage.setItem(genKey, GENERATION_ID);
+                } catch (e) {
+                    console.warn('localStorage reset failed', e);
+                }
+            }
+        })();
 
         // 更新侧边栏的小图标
         function updateSidebarIndicator(articleId) {
@@ -420,15 +439,7 @@ def generate_reading_list(input_path_or_df, output_html_path, search_info=None):
 
 
 if __name__ == "__main__":
+    # 简单测试入口（可按需修改）
     input_csv = "wnt5a_fibro.xlsx - Sheet.csv"
     output_html = "reading_list.html"
     generate_reading_list(input_csv, output_html)
-    html_parts.append('            .sidebar { position: fixed; left: 0; top: 0; width: 280px; height: 100%; background: #2a2a2a; border-right: 1px solid #444; overflow-y: auto; padding: 20px; z-index: 1000; transition: transform 0.3s; }\\n')
-    html_parts.append('            .sidebar.hidden { transform: translateX(-280px); }\\n')
-    html_parts.append('            .sidebar h2 { font-size: 18px; margin-bottom: 15px; color: #4a9eff; }\\n')
-    html_parts.append('            .sidebar ul { list-style: none; }\\n')
-    html_parts.append('            .sidebar li { margin: 8px 0; }\\n')
-    html_parts.append('            .sidebar a { color: #b0b0b0; text-decoration: none; font-size: 14px; display: block; padding: 5px; border-radius: 3px; transition: all 0.2s; }\\n')
-    html_parts.append('            .sidebar a:hover { background: #3a3a3a; color: #4a9eff; }\\n')
-    html_parts.append('            .sidebar-toggle { position: fixed; left: 290px; top: 20px; background: #4a9eff; color: white; border: none; padding: 10px 15px; cursor: pointer; border-radius: 5px; z-index: 999; transition: left 0.3s; }\\n')
-    html_parts.append('            .sidebar-toggle.sidebar-hidden { left: 10px; }\\n')
