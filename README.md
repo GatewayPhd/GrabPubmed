@@ -45,7 +45,7 @@ cd grab-pubmed-info
 
 2. **Open the notebook**:
 ```bash
-jupyter notebook pumbed_query.ipynb
+jupyter notebook pubmed_query.ipynb
 ```
 
 3. **Configure your search** (Cell 2):
@@ -276,4 +276,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - NCBI for providing the E-utilities API
 - ScienceDirect for impact factor data
 - The Python scientific computing community
+
 
