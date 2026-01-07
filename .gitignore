@@ -56,3 +56,17 @@ secrets.json
 
 # Environment file
 .env
+
+# Data files (large datasets)
+*.xlsx
+*.xls
+J_Medline.txt
+merged_journals.xlsx
+jcr_*.xlsx
+JCR_*.xlsx
+
+# Generated HTML outputs
+paper_donload/*.html
+
+# Temporary/backup files
+*copy.py
